@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MutableRecycler</string>
+    <string name="button_delete">Del</string>
+</resources>
