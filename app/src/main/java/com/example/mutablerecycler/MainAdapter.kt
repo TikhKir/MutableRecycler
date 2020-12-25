@@ -1,6 +1,5 @@
 package com.example.mutablerecycler
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.sample_item.view.*
 
-class MainAdapter(private val buttonClickListener: OnButtonClickListener):
-ListAdapter<Int, RecyclerView.ViewHolder>(IdentityDiffUtilCallback()) {
+class MainAdapter(private val buttonClickListener: OnButtonClickListener) :
+    ListAdapter<Int, RecyclerView.ViewHolder>(IdentityDiffUtilCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -25,9 +24,8 @@ ListAdapter<Int, RecyclerView.ViewHolder>(IdentityDiffUtilCallback()) {
     }
 
 
-
-    inner class SimpleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind (element: Int) {
+    inner class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(element: Int) {
             itemView.text_view_number.text = element.toString()
             itemView.button_delete.setOnClickListener { buttonClickListener.onButtonClick(element) }
         }
@@ -39,13 +37,12 @@ ListAdapter<Int, RecyclerView.ViewHolder>(IdentityDiffUtilCallback()) {
             return oldItem == newItem
         }
 
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return true //equals anyway
+            return oldItem == newItem
         }
     }
 
-    interface OnButtonClickListener{
+    interface OnButtonClickListener {
         fun onButtonClick(element: Int)
     }
 
