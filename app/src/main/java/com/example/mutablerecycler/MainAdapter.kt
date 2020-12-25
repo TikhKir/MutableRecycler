@@ -38,7 +38,7 @@ class MainAdapter(private val buttonClickListener: OnButtonClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+            return true //will be equal anyway
         }
     }
 
