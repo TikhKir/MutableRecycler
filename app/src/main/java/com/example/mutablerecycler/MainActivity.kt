@@ -1,8 +1,8 @@
 package com.example.mutablerecycler
 
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,9 +41,8 @@ class MainActivity : AppCompatActivity(), MainAdapter.OnButtonClickListener {
 
     private fun calculateColumns(): Int {
         return when (this.resources.configuration.orientation) {
-            Configuration.ORIENTATION_PORTRAIT -> 2
             Configuration.ORIENTATION_LANDSCAPE -> 4
-            else -> 1
+            else -> 2
         }
     }
 

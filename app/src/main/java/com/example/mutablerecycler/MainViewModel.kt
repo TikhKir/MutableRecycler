@@ -7,14 +7,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.random.Random
 
 class MainViewModel : ViewModel() {
 
     private val listLiveData = MutableLiveData<List<Int>>()
-    private val baseList = IntRange(1, 15).toList() as ArrayList
-    private val deletedPool = arrayListOf<Int>()
+    private val baseList = IntRange(1, 15).toMutableList()
+    private val deletedPull = arrayListOf<Int>()
     private var counter = baseList.size
 
     init {
@@ -26,13 +25,13 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             for (i in 0..Int.MAX_VALUE) {
                 delay(5000)
-                val randomPosition = Random.nextInt(baseList.size + 1)
-                if (deletedPool.size == 0) {
+                val randomPosition = Random.nextInt(baseList.size + 1) // inserting at any position included new position (+1)
+                if (deletedPull.isEmpty()) {
                     counter++
                     baseList.add(randomPosition, counter)
                 } else {
-                    baseList.add(randomPosition, deletedPool.last())
-                    deletedPool.remove(deletedPool.last())
+                    baseList.add(randomPosition, deletedPull.last())
+                    deletedPull.remove(deletedPull.last())
                 }
                 listLiveData.postValue(baseList)
             }
@@ -44,7 +43,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun deleteElement(element: Int) {
-        if (baseList.remove(element = element)) deletedPool.add(element)
+        if (baseList.remove(element)) deletedPull.add(element) //check for exclude double inserting in deletePull
         listLiveData.postValue(baseList)
     }
 
